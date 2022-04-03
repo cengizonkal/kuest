@@ -91,7 +91,7 @@
                 selector: 'node',
                 style: {
                     'background-color': '#666',
-                    'label': 'data(text)',
+                    'label': 'data(id)',
                 }
             },
 
@@ -141,6 +141,7 @@
             }
         };
         cy.add(story_node);
+        fillStorySelects();
         return false;
     }
 
@@ -160,6 +161,8 @@
             }
         };
 
+        cy.add(option_node);
+
         //add edges from this option to fail and success story
         let fail_edge = {
             group: 'edges',
@@ -167,7 +170,7 @@
                 id: cy.elements().size() + 1,
                 source: option_node.data.id,
                 target: document.getElementById('fail_story_id').value,
-                text: document.getElementById('option_content').value,
+                text: 'fail',
             }
         };
         let success_edge = {
@@ -176,28 +179,49 @@
                 id: cy.elements().size() + 1,
                 source: option_node.data.id,
                 target: document.getElementById('success_story_id').value,
-                text: document.getElementById('option_content').value,
+                text: 'success',
             }
         };
-        cy.add(option_node);
+
+        let option_edge= {
+            group: 'edges',
+            data: {
+                id: cy.elements().size() + 1,
+                source:document.getElementById('story_id').value,
+
+                target:option_node.data.id,
+                text: 'option',
+            }
+        };
+        cy.add(option_edge);
         cy.add(fail_edge);
         cy.add(success_edge);
         return false;
     }
 
-    function fillStorySelects(){
+    function fillStorySelects() {
         document.getElementById('story_id').innerHTML = "";
         document.getElementById('fail_story_id').innerHTML = "";
         document.getElementById('success_story_id').innerHTML = "";
 
-        cy.nodes().forEach(function(node){
-            if(node.data().type === 'story'){
-                let option = document.createElement("option");
-                option.value = node.data().id;
-                option.text = node.data().text;
-                document.getElementById('story_id').add(option);
-                document.getElementById('fail_story_id').add(option);
-                document.getElementById('success_story_id').add(option);
+        cy.nodes().forEach(function (node) {
+            if (node.data().type === 'story') {
+                let option1 = document.createElement("option");
+                option1.value = node.data().id;
+                option1.text = node.data().text;
+
+                let option2 = document.createElement("option");
+                option2.value = node.data().id;
+                option2.text = node.data().text;
+
+                let option3 = document.createElement("option");
+                option3.value = node.data().id;
+                option3.text = node.data().text;
+
+
+                document.getElementById('story_id').add(option1);
+                document.getElementById('fail_story_id').add(option2);
+                document.getElementById('success_story_id').add(option3);
             }
         });
     }
