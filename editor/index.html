@@ -161,6 +161,8 @@
             }
         };
 
+        console.log(option_node.data.id);
+
         cy.add(option_node);
 
         //add edges from this option to fail and success story
@@ -176,7 +178,7 @@
         let success_edge = {
             group: 'edges',
             data: {
-                id: cy.elements().size() + 1,
+                id: cy.elements().size() + 2,
                 source: option_node.data.id,
                 target: document.getElementById('success_story_id').value,
                 text: 'success',
@@ -186,7 +188,7 @@
         let option_edge= {
             group: 'edges',
             data: {
-                id: cy.elements().size() + 1,
+                id: cy.elements().size() + 3,
                 source:document.getElementById('story_id').value,
 
                 target:option_node.data.id,
