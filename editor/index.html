@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Diagram</title>
+    <script src="cytoscape.min.js"></script>
+    <style type="text/css">
+        #cy {
+            width: 1920px;
+            height: 800px;
+            display: block;
+
+        }
+
+        .selected {
+            background-color: #ff0000;
+        }
+
+    </style>
+</head>
+<body>
+
+<!--add a story node -->
+<form>
+
+    <select id="from_option">
+
+    </select>
+    <select id="status">
+        <option value="1">Success</option>
+        <option value="0">Fail</option>
+    </select>
+    <input type="text" id="story_content">
+    <button onclick="addStory()" type="button">Add Story</button>
+</form>
+<br>
+<!--add option to a story node -->
+<form>
+    <select id="story_id">
+    </select>
+    <select id="required_ability_id">
+        <option value="1">Strength</option>
+        <option value="2">Dexterity</option>
+        <option value="3">Constitution</option>
+        <option value="4">Wisdom</option>
+        <option value="5">Intelligence</option>
+        <option value="6">Charisma</option>
+    </select>
+    <select id="required_point">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+    </select>
+    <input type="text" id="option_content">
+    <button onclick="addOption()" type="button">Add Option</button>
+</form>
+<br>
+
+
+<input type="text" id="json">
+<button onclick="loadJson()">Load JSON</button>
+<button onclick="saveJson()">Save JSON</button>
+
+<div id="cy">
+
+</div>
+
+
+<script type="text/javascript">
+
+    var cy = cytoscape({
+        container: document.getElementById('cy'),
+        elements: [],
+        selectionType: 'single',
+        style: [ // the stylesheet for the graph
+            {
+                selector: 'node',
+                style: {
+                    'background-color': '#666',
+                    'label': 'data(text)',
+                }
+            },
+
+            {
+                selector: 'edge',
+                style: {
+                    'width': 2,
+                    'line-color': '#000',
+                    'target-arrow-color': '#000',
+                    'target-arrow-shape': 'triangle',
+                    'curve-style': 'bezier',
+                    'label': 'data(text)',
+                }
+            },
+            {
+                selector: ':selected',
+                css: {
+                    'background-color': 'red',
+                    'line-color': 'black',
+                    'target-arrow-color': 'black',
+                    'source-arrow-color': 'black'
+                }
+            }
+        ],
+
+        layout: {
+            name: 'preset',
+
+
+        },
+        onClick: function (event) {
+            //add class to clicked node
+            var node = event.cyTarget;
+            node.addClass('selected');
+
+        },
+
+    });
+
+    function addStory() {
+        let story_node = {
+            group: 'nodes',
+            data: {
+                id: cy.elements().size() + 1,
+                text: document.getElementById('story_content').value,
+            }
+        };
+        cy.add(story_node);
+    }
+
+    function addOption() {
+        let option_node = {
+            group: 'nodes',
+            data: {
+                id: cy.elements().size() + 1,
+                text: document.getElementById('option_content').value,
+                story_id: document.getElementById('story_id').value,
+                required_ability_id: document.getElementById('required_ability_id').value,
+                required_point: document.getElementById('required_point').value,
+            }
+        };
+        cy.add(option_node);
+    }
+
+
+    function saveJson() {
+        document.getElementById('json').value = JSON.stringify(cy.elements().jsons());
+    }
+
+    function loadJson() {
+        cy.add(JSON.parse(document.getElementById('json').value));
+    }
+
+
+</script>
+</body>
+</html>
