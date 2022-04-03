@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Diagram</title>
+    <title>Kuest Map</title>
     <script src="cytoscape.min.js"></script>
     <style type="text/css">
         #cy {
@@ -22,15 +22,7 @@
 <body>
 
 <!--add a story node -->
-<form>
-
-    <select id="from_option">
-
-    </select>
-    <select id="status">
-        <option value="1">Success</option>
-        <option value="0">Fail</option>
-    </select>
+<form onsubmit="return addStory();">
     <input type="text" id="story_content">
     <button onclick="addStory()" type="button">Add Story</button>
 </form>
@@ -38,6 +30,10 @@
 <!--add option to a story node -->
 <form>
     <select id="story_id">
+    </select>
+    <select id="fail_story_id">
+    </select>
+    <select id="success_story_id">
     </select>
     <select id="required_ability_id">
         <option value="1">Strength</option>
@@ -140,10 +136,12 @@
             group: 'nodes',
             data: {
                 id: cy.elements().size() + 1,
+                type: 'story',
                 text: document.getElementById('story_content').value,
             }
         };
         cy.add(story_node);
+        return false;
     }
 
     function addOption() {
@@ -151,13 +149,57 @@
             group: 'nodes',
             data: {
                 id: cy.elements().size() + 1,
+                type: 'option',
                 text: document.getElementById('option_content').value,
                 story_id: document.getElementById('story_id').value,
+                fail_story_id: document.getElementById('fail_story_id').value,
+                success_story_id: document.getElementById('success_story_id').value,
                 required_ability_id: document.getElementById('required_ability_id').value,
                 required_point: document.getElementById('required_point').value,
+
+            }
+        };
+
+        //add edges from this option to fail and success story
+        let fail_edge = {
+            group: 'edges',
+            data: {
+                id: cy.elements().size() + 1,
+                source: option_node.data.id,
+                target: document.getElementById('fail_story_id').value,
+                text: document.getElementById('option_content').value,
+            }
+        };
+        let success_edge = {
+            group: 'edges',
+            data: {
+                id: cy.elements().size() + 1,
+                source: option_node.data.id,
+                target: document.getElementById('success_story_id').value,
+                text: document.getElementById('option_content').value,
             }
         };
         cy.add(option_node);
+        cy.add(fail_edge);
+        cy.add(success_edge);
+        return false;
+    }
+
+    function fillStorySelects(){
+        document.getElementById('story_id').innerHTML = "";
+        document.getElementById('fail_story_id').innerHTML = "";
+        document.getElementById('success_story_id').innerHTML = "";
+
+        cy.nodes().forEach(function(node){
+            if(node.data().type === 'story'){
+                let option = document.createElement("option");
+                option.value = node.data().id;
+                option.text = node.data().text;
+                document.getElementById('story_id').add(option);
+                document.getElementById('fail_story_id').add(option);
+                document.getElementById('success_story_id').add(option);
+            }
+        });
     }
 
 
