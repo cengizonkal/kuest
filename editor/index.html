@@ -257,6 +257,7 @@
 
     function removeSelected() {
         cy.remove(cy.$(':selected'));
+        fillStorySelects();
     }
 
     //delete selected node on delete key press
