@@ -101,21 +101,57 @@
         selectionType: 'single',
         style: [ // the stylesheet for the graph
             {
-                selector: 'node',
+                selector: 'node[type="option"]',
                 style: {
-                    'background-color': '#666',
+                    'background-color': '#ffa339',
                     'label': 'data(text)',
                     'text-wrap': 'wrap',
                     'text-max-width': '100px',
+                    'height': '20px',
+                    'width': '20px',
+                }
+            },
+            {
+                selector: 'node[type="story"]',
+                style: {
+                    'background-color': '#069d4e',
+                    'label': 'data(text)',
+                    'text-wrap': 'wrap',
+                    'text-max-width': '100px',
+                    'height': '40px',
+                    'width': '40px',
+
+                }
+            },
+            {
+                selector: 'edge[type="option"]',
+                style: {
+                    'width': 2,
+                    'line-color': '#0a0a0a',
+                    'target-arrow-color': '#0a0a0a',
+                    'target-arrow-shape': 'triangle',
+                    'curve-style': 'bezier',
+                    'label': 'data(text)',
                 }
             },
 
             {
-                selector: 'edge',
+                selector: 'edge[type="success"]',
                 style: {
                     'width': 2,
-                    'line-color': '#000',
-                    'target-arrow-color': '#000',
+                    'line-color': '#069d4e',
+                    'target-arrow-color': '#069d4e',
+                    'target-arrow-shape': 'triangle',
+                    'curve-style': 'bezier',
+                    'label': 'data(text)',
+                }
+            },
+            {
+                selector: 'edge[type="fail"]',
+                style: {
+                    'width': 2,
+                    'line-color': '#ff4646',
+                    'target-arrow-color': '#ff4646',
                     'target-arrow-shape': 'triangle',
                     'curve-style': 'bezier',
                     'label': 'data(text)',
@@ -186,6 +222,7 @@
             group: 'edges',
             data: {
                 id: cy.elements().size() + 1,
+                type: 'fail',
                 source: option_node.data.id,
                 target: document.getElementById('fail_story_id').value,
                 text: 'fail',
@@ -197,6 +234,7 @@
             group: 'edges',
             data: {
                 id: cy.elements().size() + 1,
+                type: 'success',
                 source: option_node.data.id,
                 target: document.getElementById('success_story_id').value,
                 text: 'success',
@@ -208,6 +246,7 @@
             group: 'edges',
             data: {
                 id: cy.elements().size() + 1,
+                type: 'option',
                 source: document.getElementById('story_id').value,
                 target: option_node.data.id,
                 text: 'option',
