@@ -29,7 +29,7 @@
 </form>
 <br>
 <!--add option to a story node -->
-<form>
+<form onsubmit="return addOption()">
     <label>
         From:
         <select id="story_id">
@@ -83,11 +83,11 @@
 </form>
 <br>
 
-
-<input type="text" id="json">
-<button onclick="loadJson()">Load JSON</button>
-<button onclick="saveJson()">Save JSON</button>
-
+<form>
+    <input type="text" id="json">
+    <button onclick="loadJson()" type="button">Load JSON</button>
+    <button onclick="saveJson()" type="button">Save JSON</button>
+</form>
 <div id="cy">
 
 </div>
