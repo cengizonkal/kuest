@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kuest Map</title>
     <script src="cytoscape.min.js"></script>
+
     <style>
         #cy {
             width: 100%;
@@ -17,6 +18,8 @@
         .selected {
             background-color: #ff0000;
         }
+
+
 
     </style>
 </head>
@@ -117,7 +120,7 @@
                     'background-color': '#069d4e',
                     'label': 'data(text)',
                     'text-wrap': 'wrap',
-                    'text-max-width': '100px',
+                    'text-max-width': '400px',
                     'height': '40px',
                     'width': '40px',
 
@@ -306,6 +309,9 @@
             removeSelected();
         }
     });
+
+
+
 
 
 </script>
