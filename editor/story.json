@@ -1,0 +1,445 @@
+[
+  {
+    "data": {
+      "id": "1",
+      "type": "story",
+      "text": "Karanlık.  Gece mi olmuştu ? yoksa hava fırtına bulutları yüzünden mi kararmıştı söylemek mümkün değildi.  Rüzgar yağmur damlalarını heryöne doğru savuruyordu. Bildiği onca şeye rağmen yağmurdan kaçınmanın bir yolu yoktu.  Avcı adımlarını hızlandırıken kendi kendine bir kahkaha attı, aynı anda gök gürledi ve kahkahaya eşlik etti."
+    },
+    "position": {
+      "x": 331,
+      "y": 451
+    },
+    "group": "nodes",
+    "removed": false,
+    "selected": false,
+    "selectable": true,
+    "locked": false,
+    "grabbable": true,
+    "pannable": false,
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "2",
+      "type": "story",
+      "text": "Çağrı geleli üç gün olmuştu.  Şehirden uzak bir kasabada yolunda gitmeyen birşeyler vardı.  Böyle çağrılar sıklıkla görülürdü ve genelde birkaç köylünün basit korkularından ibaret olurdu  ama yinede Düzen bu olayları denetlemesi için birini mutlaka gönderirdi.  Buraya gelmek için Avcı trene binmişti ama kasabaya varmak için yaklaşık bir günlük bir yolu yürümesi gerekiyordu.  Elbette bu işinin bir parçasıydı, Avcı durdu ve kapşonunu geriye doğru attı ve dikkatle ileriye doğru baktı bir anlık çakan şimşek yüzünü aydınlattı. Yaşlı sayılmazdı ama genç de değildi saçları grileşmişti ve yüzünde yılların izleri vardı. Avcı kapşonunu yine taktı ve yürümeye devam etti."
+    },
+    "position": {
+      "x": 718,
+      "y": 338
+    },
+    "group": "nodes",
+    "removed": false,
+    "selected": false,
+    "selectable": true,
+    "locked": false,
+    "grabbable": true,
+    "pannable": false,
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "3",
+      "type": "option",
+      "text": "devam et",
+      "story_id": "1",
+      "fail_story_id": "2",
+      "success_story_id": "2",
+      "required_ability_id": "5",
+      "required_point": "1"
+    },
+    "position": {
+      "x": 585,
+      "y": 483
+    },
+    "group": "nodes",
+    "removed": false,
+    "selected": false,
+    "selectable": true,
+    "locked": false,
+    "grabbable": true,
+    "pannable": false,
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "7",
+      "type": "story",
+      "text": "Kasaba artık görünüyordu ama yolunda olmayan bişeyler vardı."
+    },
+    "position": {
+      "x": 1036,
+      "y": 442
+    },
+    "group": "nodes",
+    "removed": false,
+    "selected": false,
+    "selectable": true,
+    "locked": false,
+    "grabbable": true,
+    "pannable": false,
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "8",
+      "type": "story",
+      "text": "Kasabada hiç ışık yoktu.  \tAvcı yüzünü buruşturdu geç kalmıştı."
+    },
+    "position": {
+      "x": 1328,
+      "y": 266
+    },
+    "group": "nodes",
+    "removed": false,
+    "selected": false,
+    "selectable": true,
+    "locked": false,
+    "grabbable": true,
+    "pannable": false,
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "9",
+      "type": "option",
+      "text": "devam et",
+      "story_id": "2",
+      "fail_story_id": "7",
+      "success_story_id": "7",
+      "required_ability_id": "5",
+      "required_point": "1"
+    },
+    "position": {
+      "x": 840,
+      "y": 466
+    },
+    "group": "nodes",
+    "removed": false,
+    "selected": false,
+    "selectable": true,
+    "locked": false,
+    "grabbable": true,
+    "pannable": false,
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "4",
+      "type": "fail",
+      "source": "3",
+      "target": "2",
+      "text": "fail"
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "group": "edges",
+    "removed": false,
+    "selected": false,
+    "selectable": true,
+    "locked": false,
+    "grabbable": true,
+    "pannable": true,
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "5",
+      "type": "success",
+      "source": "3",
+      "target": "2",
+      "text": "success"
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "group": "edges",
+    "removed": false,
+    "selected": false,
+    "selectable": true,
+    "locked": false,
+    "grabbable": true,
+    "pannable": true,
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "6",
+      "type": "option",
+      "source": "1",
+      "target": "3",
+      "text": "option"
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "group": "edges",
+    "removed": false,
+    "selected": false,
+    "selectable": true,
+    "locked": false,
+    "grabbable": true,
+    "pannable": true,
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "10",
+      "type": "fail",
+      "source": "9",
+      "target": "7",
+      "text": "fail"
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "group": "edges",
+    "removed": false,
+    "selected": false,
+    "selectable": true,
+    "locked": false,
+    "grabbable": true,
+    "pannable": true,
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "11",
+      "type": "success",
+      "source": "9",
+      "target": "7",
+      "text": "success"
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "group": "edges",
+    "removed": false,
+    "selected": false,
+    "selectable": true,
+    "locked": false,
+    "grabbable": true,
+    "pannable": true,
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "12",
+      "type": "option",
+      "source": "2",
+      "target": "9",
+      "text": "option"
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "group": "edges",
+    "removed": false,
+    "selected": false,
+    "selectable": true,
+    "locked": false,
+    "grabbable": true,
+    "pannable": true,
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "13",
+      "type": "story",
+      "text": "Kasabaya varır varmaz ilk gördüğü eve girdi kapı kırılmıştı ve eşyalar dağılmıştı."
+    },
+    "position": {
+      "x": 1431,
+      "y": 495
+    },
+    "group": "nodes",
+    "removed": false,
+    "selected": false,
+    "selectable": true,
+    "locked": false,
+    "grabbable": true,
+    "pannable": false,
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "14",
+      "type": "option",
+      "text": "incele",
+      "story_id": "7",
+      "fail_story_id": "13",
+      "success_story_id": "8",
+      "required_ability_id": "4",
+      "required_point": "10"
+    },
+    "position": {
+      "x": 1195,
+      "y": 439
+    },
+    "group": "nodes",
+    "removed": false,
+    "selected": false,
+    "selectable": true,
+    "locked": false,
+    "grabbable": true,
+    "pannable": false,
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "15",
+      "type": "fail",
+      "source": "14",
+      "target": "13",
+      "text": "fail"
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "group": "edges",
+    "removed": false,
+    "selected": false,
+    "selectable": true,
+    "locked": false,
+    "grabbable": true,
+    "pannable": true,
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "16",
+      "type": "success",
+      "source": "14",
+      "target": "8",
+      "text": "success"
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "group": "edges",
+    "removed": false,
+    "selected": false,
+    "selectable": true,
+    "locked": false,
+    "grabbable": true,
+    "pannable": true,
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "17",
+      "type": "option",
+      "source": "7",
+      "target": "14",
+      "text": "option"
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "group": "edges",
+    "removed": false,
+    "selected": false,
+    "selectable": true,
+    "locked": false,
+    "grabbable": true,
+    "pannable": true,
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "18",
+      "type": "option",
+      "text": "koş",
+      "story_id": "7",
+      "fail_story_id": "13",
+      "success_story_id": "13",
+      "required_ability_id": "3",
+      "required_point": "1"
+    },
+    "position": {
+      "x": 1137,
+      "y": 576
+    },
+    "group": "nodes",
+    "removed": false,
+    "selected": false,
+    "selectable": true,
+    "locked": false,
+    "grabbable": true,
+    "pannable": false,
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "19",
+      "type": "fail",
+      "source": "18",
+      "target": "13",
+      "text": "fail"
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "group": "edges",
+    "removed": false,
+    "selected": false,
+    "selectable": true,
+    "locked": false,
+    "grabbable": true,
+    "pannable": true,
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "20",
+      "type": "success",
+      "source": "18",
+      "target": "13",
+      "text": "success"
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "group": "edges",
+    "removed": false,
+    "selected": false,
+    "selectable": true,
+    "locked": false,
+    "grabbable": true,
+    "pannable": true,
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "21",
+      "type": "option",
+      "source": "7",
+      "target": "18",
+      "text": "option"
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "group": "edges",
+    "removed": false,
+    "selected": false,
+    "selectable": true,
+    "locked": false,
+    "grabbable": true,
+    "pannable": true,
+    "classes": ""
+  }
+]
