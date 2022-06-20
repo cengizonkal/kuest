@@ -24,8 +24,8 @@ endif()
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release")
 
 # Game Name Customization
-set(PLAYDATE_GAME_NAME hello_world)
-set(PLAYDATE_GAME_DEVICE hello_world_DEVICE)
+set(PLAYDATE_GAME_NAME kuest)
+set(PLAYDATE_GAME_DEVICE kuest_DEVICE)
 
 project(${PLAYDATE_GAME_NAME} C ASM)
 

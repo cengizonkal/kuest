@@ -1,3 +1,6 @@
 build
 cmake-build-debug
 .idea
+kuest.pdx
+Source/pdex.bin
+Source/pdex.so
