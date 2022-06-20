@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "pd_api.h"
+#include "Story.h"
 
 static int update(void* userdata);
 const char* fontpath = "/System/Fonts/Asheville-Sans-14-Bold.pft";
