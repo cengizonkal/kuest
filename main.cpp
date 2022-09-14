@@ -1,53 +1,13 @@
 #include <iostream>
 #include <sqlite3.h>
 #include <vector>
-#include <list>
 
-enum Skills {
-    strength,
-    dexterity,
-    constitution,
-    intelligence,
-    wisdom,
-    charisma
-};
+#include "Narrative.h"
+#include "Option.h"
+#include "Player.h"
+#include "Skills.h"
 
-class Narrative;
 
-class Option {
-public:
-    //text to show
-    std::string text;
-    //required skill
-    Skills required_skill{};
-    int dc{}; //difficulty class
-    //what happens if you succeed
-    Narrative *success{};
-    //what happens if you fail
-    Narrative *failure{};
-
-    void print() const {
-        std::cout << text << std::endl;
-    }
-
-};
-
-class Narrative {
-public:
-    int id = 0;
-    std::string text;
-    std::vector<Option> options;
-
-    void print() {
-        std::cout << text << std::endl;
-        //print options
-        for (int i = 0; i < options.size(); i++) {
-            std::cout << i << ". ";
-            options[i].print();
-        }
-    }
-
-};
 
 class Story {
     //has narrative list
@@ -71,9 +31,11 @@ public:
 
         //load options
         //for each narrative load options
-        for (auto & narrative : narratives) {
+        for (auto &narrative: narratives) {
             sqlite3_stmt *stmt2;
-            sqlite3_prepare_v2(db, "SELECT id,text,required_skill,dc,success,fail FROM options where narrative_id = ? order by id", -1, &stmt2, nullptr);
+            sqlite3_prepare_v2(db,
+                               "SELECT id,text,required_skill,dc,success,fail FROM options where narrative_id = ? order by id",
+                               -1, &stmt2, nullptr);
             sqlite3_bind_int(stmt2, 1, narrative.id);
             while (sqlite3_step(stmt2) == SQLITE_ROW) {
                 Option o;
@@ -96,35 +58,6 @@ public:
     }
 
 //load from database
-};
-
-class Player {
-
-public:
-    int skills[6] = {1, 2, 3, 4, 5, 6};
-
-    Narrative *currentNarrative;
-    void setCurrentNarrative(Narrative *n) {
-        currentNarrative = n;
-    }
-
-    void choose(int option) {
-        //check if option is valid
-        if (option < 0 || option >= currentNarrative->options.size()) {
-            std::cout << "Invalid option" << std::endl;
-            return;
-        }
-        //check if skill is high enough
-        if (skills[currentNarrative->options[option].required_skill] >= currentNarrative->options[option].dc) {
-            //success
-            currentNarrative = currentNarrative->options[option].success;
-        } else {
-            //failure
-            currentNarrative = currentNarrative->options[option].failure;
-        }
-
-    }
-
 };
 
 
