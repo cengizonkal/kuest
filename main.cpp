@@ -19,12 +19,12 @@ public:
     //text to show
     std::string text;
     //required skill
-    Skills required_skill;
-    int dc; //difficulty class
+    Skills required_skill{};
+    int dc{}; //difficulty class
     //what happens if you succeed
-    Narrative *success;
+    Narrative *success{};
     //what happens if you fail
-    Narrative *failure;
+    Narrative *failure{};
 
     void print() const {
         std::cout << text << std::endl;
@@ -45,8 +45,6 @@ public:
             std::cout << i << ". ";
             options[i].print();
         }
-
-
     }
 
 };
