@@ -34,10 +34,9 @@ public:
 
 class Narrative {
 public:
-    int id;
+    int id = 0;
     std::string text;
     std::vector<Option> options;
-
 
     void print() {
         std::cout << text << std::endl;
@@ -66,25 +65,30 @@ public:
         while (sqlite3_step(stmt) == SQLITE_ROW) {
             Narrative n;
             n.id = sqlite3_column_int(stmt, 0);
-            n.text= reinterpret_cast<const char *>(sqlite3_column_text(stmt, 1));
-            //load options
-            sqlite3_stmt *stmt2;
-            sqlite3_prepare_v2(db, "SELECT text, required_skill, dc, success, fail FROM options WHERE narrative_id = ?",
-                               -1, &stmt2, nullptr);
-            sqlite3_bind_int(stmt2, 1, n.id);
-            Option o;
-            while (sqlite3_step(stmt2) == SQLITE_ROW) {
-                o.text = std::string(reinterpret_cast<const char *>(sqlite3_column_text(stmt2, 0)));
-                o.required_skill = (Skills) sqlite3_column_int(stmt2, 1);
-                o.dc = sqlite3_column_int(stmt2, 2);
-                o.success = getNarrative(sqlite3_column_int(stmt2, 3));
-                o.failure = getNarrative(sqlite3_column_int(stmt2, 4));
-                n.options.push_back(o);
-            }
-
+            n.text = reinterpret_cast<const char *>(sqlite3_column_text(stmt, 1));
             narratives.push_back(n);
-
         }
+        sqlite3_finalize(stmt);
+
+
+        //load options
+        //for each narrative load options
+        for (auto & narrative : narratives) {
+            sqlite3_stmt *stmt2;
+            sqlite3_prepare_v2(db, "SELECT id,text,required_skill,dc,success,fail FROM options where narrative_id = ? order by id", -1, &stmt2, nullptr);
+            sqlite3_bind_int(stmt2, 1, narrative.id);
+            while (sqlite3_step(stmt2) == SQLITE_ROW) {
+                Option o;
+                o.text = reinterpret_cast<const char *>(sqlite3_column_text(stmt2, 1));
+                o.required_skill = static_cast<Skills>(sqlite3_column_int(stmt2, 2));
+                o.dc = sqlite3_column_int(stmt2, 3);
+                o.success = &narratives[sqlite3_column_int(stmt2, 4)];
+                o.failure = &narratives[sqlite3_column_int(stmt2, 5)];
+                narrative.options.push_back(o);
+            }
+        }
+
+
         sqlite3_finalize(stmt);
         sqlite3_close(db);
     }
@@ -99,11 +103,28 @@ public:
 class Player {
 
 public:
-    Narrative *currentNarrative;
-    int skills[6];
+    int skills[6] = {1, 2, 3, 4, 5, 6};
 
+    Narrative *currentNarrative;
     void setCurrentNarrative(Narrative *n) {
         currentNarrative = n;
+    }
+
+    void choose(int option) {
+        //check if option is valid
+        if (option < 0 || option >= currentNarrative->options.size()) {
+            std::cout << "Invalid option" << std::endl;
+            return;
+        }
+        //check if skill is high enough
+        if (skills[currentNarrative->options[option].required_skill] >= currentNarrative->options[option].dc) {
+            //success
+            currentNarrative = currentNarrative->options[option].success;
+        } else {
+            //failure
+            currentNarrative = currentNarrative->options[option].failure;
+        }
+
     }
 
 };
@@ -116,7 +137,13 @@ int main() {
 
     Player player;
     player.setCurrentNarrative(story.getNarrative(0));
-    player.currentNarrative->print();
+    while (!player.currentNarrative->options.empty()) {
+        player.currentNarrative->print();
+        int choice;
+        std::cin >> choice;
+        player.choose(choice);
+    }
+
 
     return 0;
 }
